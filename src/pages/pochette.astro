@@ -1,0 +1,204 @@
+---
+import Lesson from "../layouts/Lesson.astro";
+---
+
+<Lesson
+  title="Pochette | Carnet"
+  description="Les rubans et les notes posés dans les cours de Carnet."
+>
+  <header class="hero">
+    <div class="wrap">
+      <h1>Pochette</h1>
+      <p class="lede">
+        Les rubans et les notes posés dans les cours. Ils restent dans ce navigateur : l'export les
+        met à l'abri et les ramène sur un autre ordinateur.
+      </p>
+    </div>
+  </header>
+
+  <div class="wrap pocket">
+    <section aria-labelledby="rubans">
+      <h2 id="rubans">Rubans</h2>
+      <ul class="pocket-ribbons"></ul>
+      <p class="pocket-empty" data-empty="ribbons">
+        Aucun ruban. Dans le sommaire d'un chapitre, le ruban à droite d'une section la marque.
+        Trois rubans au plus, comme dans un carnet.
+      </p>
+    </section>
+
+    <section aria-labelledby="notes">
+      <h2 id="notes">Notes</h2>
+      <div class="pocket-notes"></div>
+      <p class="pocket-empty" data-empty="notes">
+        Aucune note. Dans un chapitre, sélectionnez un passage puis Annoter pour le surligner et
+        écrire une note.
+      </p>
+    </section>
+
+    <section aria-labelledby="detachees" data-detached hidden>
+      <h2 id="detachees">Notes détachées</h2>
+      <p class="pocket-help">
+        Le passage de ces notes a été modifié ou retiré de sa page. La note reste ici.
+      </p>
+      <div class="pocket-detached"></div>
+    </section>
+
+    <section aria-labelledby="sauvegarde">
+      <h2 id="sauvegarde">Sauvegarde et affichage</h2>
+      <p class="pocket-help">
+        L'export est un fichier Markdown lisible, avec les liens vers les pages. Il se réimporte
+        ici, sur ce navigateur ou un autre.
+      </p>
+      <div class="pocket-actions cluster">
+        <button type="button" class="button" data-export>
+          Exporter en Markdown
+        </button>
+        <button type="button" class="button" data-import>
+          Importer un export
+        </button>
+        <input type="file" accept=".md,text/markdown" hidden />
+      </div>
+      <p class="pocket-status" role="status"></p>
+      <label class="pocket-switch cluster">
+        <input type="checkbox" data-show />
+        Afficher les rubans et les notes dans les pages
+      </label>
+      <p class="pocket-help">
+        À décocher avant de projeter un cours : les notes restent dans la Pochette.
+      </p>
+    </section>
+  </div>
+</Lesson>
+
+<script>
+  import "../scripts/pocket.js";
+</script>
+
+<!-- Global : les listes sont construites par le script, hors de la portée des styles scopés -->
+<style is:global>
+  @layer components {
+    /* Même marge gauche que le titre, lignes de 48rem comme les chapitres */
+    .pocket {
+      display: grid;
+      gap: 48px;
+      padding-top: 48px;
+    }
+
+    .pocket > * {
+      max-width: 48rem;
+    }
+
+    .pocket h2 {
+      margin: 0 0 16px;
+      font-size: 1.5rem;
+    }
+
+    .pocket-empty,
+    .pocket-help {
+      margin: 0 0 12px;
+      color: var(--text-muted);
+    }
+
+    .pocket-ribbons {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .pocket-ribbons li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .pocket-ribbons .ribbon-band {
+      flex: none;
+      height: 22px;
+    }
+
+    .pocket-ribbons a,
+    .pocket-page h3 a {
+      text-decoration-color: var(--accent);
+      text-underline-offset: 4px;
+    }
+
+    .pocket-ribbons button {
+      margin-left: auto;
+    }
+
+    .pocket-page {
+      padding: 16px 0 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .pocket-page h3 {
+      margin: 0 0 12px;
+      font-size: 1.125rem;
+    }
+
+    .pocket-page h3 span {
+      margin-left: 8px;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .pocket-note {
+      margin: 0 0 20px;
+    }
+
+    .pocket-note blockquote {
+      margin: 0 0 6px;
+      padding: 0;
+      border: 0;
+    }
+
+    .pocket-note blockquote a {
+      color: inherit;
+      text-decoration: none;
+      background: var(--annot);
+    }
+
+    .pocket-note blockquote a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+    }
+
+    .pocket-note p {
+      margin: 0 0 4px;
+      padding: 8px 12px;
+      color: var(--accent-text);
+      white-space: pre-wrap;
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-shadow);
+      border-radius: 6px;
+    }
+
+    .pocket-actions {
+      flex-wrap: wrap;
+      --cluster-space: 8px;
+      margin-bottom: 8px;
+    }
+
+    .pocket-status:empty {
+      display: none;
+    }
+
+    .pocket-switch {
+      --cluster-space: 10px;
+      margin: 24px 0 4px;
+      font-weight: 500;
+      color: var(--heading);
+      cursor: pointer;
+      flex-wrap: nowrap;
+    }
+
+    .pocket-switch input {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: var(--accent-stroke);
+    }
+  }
+</style>

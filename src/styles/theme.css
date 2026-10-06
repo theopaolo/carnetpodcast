@@ -1,0 +1,25 @@
+@layer settings, reset, base, compositions, components, utilities;
+
+@import "piloti/settings.css" layer(settings);
+@import "./settings.css" layer(settings);
+@import "./base.css" layer(base);
+@import "piloti/compositions.css" layer(compositions);
+@import "./controls.css" layer(components);
+@import "./prose.css" layer(components);
+@import "./course-reading.css" layer(components);
+@import "./diagrams.css" layer(components);
+@import "./sequence.css" layer(components);
+@import "./notebook.css" layer(components);
+@import "./layout.css" layer(components);
+@import "./header.css" layer(components);
+@import "./navigation.css" layer(components);
+@import "./search.css" layer(components);
+@import "./hero.css" layer(components);
+@import "./print.css" layer(utilities);
+
+/* Mermaid uses the same class on SVG groups. Compositions apply to HTML. */
+@layer compositions {
+  svg .cluster {
+    display: revert-layer;
+  }
+}
